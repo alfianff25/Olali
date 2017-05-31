@@ -1,17 +1,24 @@
- <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+/**
+*
+*/
+class M_dafpesan extends CI_Model{
 
-class Daf_pesan extends CI_Controller {
-	function __construct(){
-        parent::__construct();
-        $this->load->model('M_dafpesan');
-    }
-
-	public function load()
-	{
-		$data = $this->M_dafpesan->getpesan();
-		$this->load->view('daftar_pesanan', array('data' => $data));
+	public function getpesan($where=""){
+		$data = $this->db->query('select * from pesanan '.$where);
+		return $data->result_array();
+		
 	}
-    
-	
+	public function InsertData($tabelName,$data){
+		$res = $this->db->insert($tabelName,$data);
+		return $res;
+	}
+	public function UpdateData($tabelName,$data,$where){
+		$res = $this->db->update($tabelName,$data,$where);
+		return $res;
+	}
+	public function DeleteData($tabelName,$where){
+		$res = $this->db->delete($tabelName,$where);
+		return $res;
+	}
 }
